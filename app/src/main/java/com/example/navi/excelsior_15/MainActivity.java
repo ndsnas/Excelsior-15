@@ -33,7 +33,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 //import com.example.navi.excelsior_15.Fragments.FragmentBoxOffice;
-import com.example.navi.excelsior_15.Fragments.FragmentEvents;
+import com.example.navi.excelsior_15.Fragments.FragmentEvent;
+
 import com.example.navi.excelsior_15.Fragments.FragmentGallery;
 import com.example.navi.excelsior_15.Fragments.FragmentLive;
 //import com.example.navi.excelsior_15.Fragments.FragmentSearch;
@@ -54,8 +55,8 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
     public static final int LIVE = 1;
-    public static final int EVENTS = 0;
-    public static final int GALLERY = 2;
+    public static final int EVENTS = 2;
+    public static final int GALLERY = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,20 +85,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                             .setIcon(adapter.getIcon(i))
                             .setTabListener(this));
         }
-        /*mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        mTabs.setDistributeEvenly(true);
-        mTabs.setCustomTabView(R.layout.custom_tab_view, R.id.tabText);*/
-        /*mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.colorAccent);
-            }
-        });*/
-        /*mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.colorAccent));
-        mTabs.setBackgroundColor(getResources().getColor(R.color.primaryColor));
-        mTabs.setViewPager(mPager);*/
+
     }
 
 
@@ -143,11 +131,11 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
         int icons[] = {R.drawable.ic_action_home, R.drawable.ic_action_articles, R.drawable.ic_action_personal};
-        /*String[] tabText = getResources().getStringArray(R.array.tabs);*/
+
 
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
-            /*tabText = getResources().getStringArray(R.array.tabs);*/
+
         }
 
         @Override
@@ -159,7 +147,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                     fragment= FragmentLive.newInstance("", "");
                     break;
                 case EVENTS:
-                    fragment= FragmentEvents.newInstance("", "");
+                    fragment= FragmentEvent.newInstance("", "");
                     break;
                 case GALLERY:
                     fragment= FragmentGallery.newInstance("", "");
@@ -172,12 +160,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
         @Override
         public CharSequence getPageTitle(int position) {
-            /*Drawable drawable=getResources().getDrawable(icons[position]);
-            drawable.setBounds(0, 0, 36, 36);
-            ImageSpan imageSpan= new ImageSpan(drawable);
-            SpannableString spannableString= new SpannableString(" ");
-            spannableString.setSpan(imageSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return spannableString;*/
+
             return getResources().getStringArray(R.array.tabs)[position];
         }
 
@@ -201,30 +184,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
             return myFragment;
         }
 
-        /*@Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View layout = inflater.inflate(R.layout.fragment_my, container, false);
-            textView = (TextView) layout.findViewById(R.id.position);
-            Bundle bundle = getArguments();
-            if (bundle != null) {
-                textView.setText("The Page Currently Selected is " + bundle.getInt("position"));
-            }
-            RequestQueue requestQueue= VolleySingleton.getsInstance().getRequestQueue();
-            StringRequest request= new StringRequest(Request.Method.GET, "http://php.net/", new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Toast.makeText(getActivity(), "RESPONSE "+response, Toast.LENGTH_SHORT).show();
 
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getActivity(), "ERROR "+error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            requestQueue.add(request);
-            return layout;
-        }*/
     }
 
 
